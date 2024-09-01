@@ -41,6 +41,6 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 make -j$(nproc)
 
 echo "Build completed successfully!"
-echo "The 'main' executable can be found at: $(pwd)/main"
+echo "The 'main' executable can be found at: $(pwd)/bin/main"
 echo "Running the main executable with the sample audio file..."
-$(pwd)/main -m $MODEL_PATH -f ../samples/jfk.wav
+$(pwd)/bin/main -m $MODEL_PATH -f ../samples/jfk.wav
