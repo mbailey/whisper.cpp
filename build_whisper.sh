@@ -17,10 +17,11 @@ for cmd in ccache cmake make g++; do
 done
 
 # Download the model if it doesn't exist
-MODEL_PATH="$(pwd)/../models/ggml-base.en.bin"
+MODEL_PATH="$(realpath "$(dirname "$0")/../models/ggml-base.en.bin")"
+DOWNLOAD_SCRIPT="$(realpath "$(dirname "$0")/../models/download-ggml-model.sh")"
 if [ ! -f "$MODEL_PATH" ]; then
     echo "Downloading the base.en model..."
-    bash "$(pwd)/../models/download-ggml-model.sh" base.en
+    bash "$DOWNLOAD_SCRIPT" base.en
 fi
 
 # Create build directory
