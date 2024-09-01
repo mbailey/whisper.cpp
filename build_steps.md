@@ -4,26 +4,24 @@
    - Ensure all necessary dependencies are installed (CMake, C++ compiler, Intel oneAPI if using SYCL)
    - Set up the project directory structure
 
-2. **Modify the CMakeLists.txt file**
+2. **Use the build script**
+   - Run the `build_whisper.sh` script to compile the project
+   - The script will check for required tools, create a build directory, and compile the project
+
+3. **Modify the CMakeLists.txt file (if necessary)**
    - Add a target for building the server
    - Ensure all necessary libraries are linked
 
-3. **Update the server code (examples/server/server.cpp)**
+4. **Update the server code (examples/server/server.cpp)**
    - Modify the API to be compatible with OpenAI's transcription API
    - Ensure proper error handling and logging
 
-4. **Create or modify the build script**
-   - Use the existing SYCL build script as a base
-   - Add steps to build the server target
-   - Include steps to package necessary files (server binary, model, README, etc.)
+5. **Package necessary files**
+   - Include the compiled binary, model files, README, etc.
    - Generate a configuration file
-   - Create an installation script
-
-5. **Build the project**
-   - Run the build script to compile the server and create the distribution package
+   - Create an installation script if needed
 
 6. **Test the built artifact**
-   - Install the package on a separate machine
    - Verify that the server runs correctly
    - Test API compatibility with OpenAI's transcription API
 
@@ -34,7 +32,7 @@
 
 8. **Package for distribution**
    - Create a compressed archive (e.g., tar.gz) of the built artifacts
-   - Consider creating platform-specific packages (e.g., .deb for Debian-based systems)
+   - Consider creating platform-specific packages (e.g., .rpm for Fedora)
 
 9. **Set up continuous integration (optional)**
    - Automate the build process for different platforms

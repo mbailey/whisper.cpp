@@ -494,6 +494,17 @@ For detailed instructions on how to use Conan, please refer to the [Conan docume
 
 - Inference only
 
+## Building from Source
+
+To build the project from source, you can use the provided build script:
+
+```bash
+chmod +x build_whisper.sh
+./build_whisper.sh
+```
+
+This script will check for the required dependencies, create a build directory, and compile the project using CMake and Make.
+
 ## Another example
 
 Here is another example of transcribing a [3:24 min speech](https://upload.wikimedia.org/wikipedia/commons/1/1f/George_W_Bush_Columbia_FINAL.ogg)
