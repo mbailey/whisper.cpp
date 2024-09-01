@@ -24,6 +24,9 @@ if [ ! -f "$MODEL_PATH" ]; then
     bash "$DOWNLOAD_SCRIPT" base.en
 fi
 
+# Mention the new script for downloading all models
+echo "Note: To download all available models, run the 'download_all_models.sh' script."
+
 # Create build directory
 mkdir -p build
 cd build
