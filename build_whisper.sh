@@ -17,10 +17,10 @@ for cmd in ccache cmake make g++; do
 done
 
 # Download the model if it doesn't exist
-MODEL_PATH="models/ggml-base.en.bin"
+MODEL_PATH="$(pwd)/../models/ggml-base.en.bin"
 if [ ! -f "$MODEL_PATH" ]; then
     echo "Downloading the base.en model..."
-    bash ./models/download-ggml-model.sh base.en
+    bash "$(pwd)/../models/download-ggml-model.sh" base.en
 fi
 
 # Create build directory
@@ -36,8 +36,8 @@ make -j$(nproc)
 echo "Build completed successfully!"
 echo "The 'main' executable can be found at: $(pwd)/bin/main"
 echo "Running the main executable with the sample audio file..."
-echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f ../samples/jfk.wav"
-$(pwd)/bin/main -m $MODEL_PATH -f ../samples/jfk.wav
+echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.wav"
+$(pwd)/bin/main -m $MODEL_PATH -f "$(pwd)/../samples/jfk.wav"
 
 # Print the contents of the models directory
 echo -e "\033[1;33mContents of the models directory:\033[0m"
