@@ -75,13 +75,15 @@ mkdir -p build
 cd build
 
 # Configure with CMake
-cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF ..
 
-# Build
-make -j$(nproc)
+# Build main and server
+make -j$(nproc) main
+make -j$(nproc) server
 
 echo "Build completed successfully!"
 echo "The 'main' executable can be found at: $(pwd)/bin/main"
+echo "The 'server' executable can be found at: $(pwd)/bin/server"
 echo "Running the main executable with sample audio files..."
 
 # Test with WAV file - not supported yet

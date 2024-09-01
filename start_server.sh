@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Set the path to the main executable
-MAIN_EXECUTABLE="./build/bin/main"
+#!/bin/bash
+
+# Set the path to the server executable
+SERVER_EXECUTABLE="./build/bin/server"
 
 # Set the path to the model file
 MODEL_FILE="./models/ggml-base.en.bin"
@@ -9,9 +11,9 @@ MODEL_FILE="./models/ggml-base.en.bin"
 # Set the port for the server (default is 8080)
 PORT=8080
 
-# Check if the main executable exists
-if [ ! -f "$MAIN_EXECUTABLE" ]; then
-    echo "Error: $MAIN_EXECUTABLE not found. Please build the project first."
+# Check if the server executable exists
+if [ ! -f "$SERVER_EXECUTABLE" ]; then
+    echo "Error: $SERVER_EXECUTABLE not found. Please build the project first."
     exit 1
 fi
 
@@ -23,7 +25,7 @@ fi
 
 # Start the server
 echo "Starting Whisper server..."
-$MAIN_EXECUTABLE -m "$MODEL_FILE" --server -p $PORT &
+$SERVER_EXECUTABLE -m "$MODEL_FILE" -t 4 &
 
 # Wait for the server to start
 sleep 2
