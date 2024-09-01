@@ -8,7 +8,7 @@ command_exists() {
 }
 
 # Check for required tools
-for cmd in ccache cmake make g++; do
+for cmd in ccache cmake make ffmpeg g++; do
     if ! command_exists $cmd; then
         echo "Error: $cmd is not installed. Please install it and try again."
         echo "sudo dnf install $cmd"
