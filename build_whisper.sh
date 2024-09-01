@@ -23,6 +23,13 @@ if ! command_exists cmake; then
     exit 1
 fi
 
+# Download the model if it doesn't exist
+MODEL_PATH="models/ggml-base.en.bin"
+if [ ! -f "$MODEL_PATH" ]; then
+    echo "Downloading the base.en model..."
+    bash ./models/download-ggml-model.sh base.en
+fi
+
 # Create build directory
 mkdir -p build
 cd build
