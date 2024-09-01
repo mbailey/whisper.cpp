@@ -42,5 +42,5 @@ make -j$(nproc)
 
 echo "Build completed successfully!"
 echo "The 'main' executable can be found at: $(pwd)/main"
-echo "You can run it with:"
-echo "  $(pwd)/main -m $MODEL_PATH -f samples/jfk.wav"
+echo "Running the main executable with the sample audio file..."
+$(pwd)/main -m $MODEL_PATH -f ../samples/jfk.wav
