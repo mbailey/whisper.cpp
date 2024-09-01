@@ -7,14 +7,32 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Check for required tools
-for cmd in ccache cmake make ffmpeg g++; do
-    if ! command_exists $cmd; then
-        echo "Error: $cmd is not installed. Please install it and try again."
-        echo "sudo dnf install $cmd"
-        exit 1
+# List of required packages
+REQUIRED_PACKAGES=(ccache cmake make ffmpeg gcc-c++)
+
+# Check for required tools and collect missing packages
+MISSING_PACKAGES=()
+for pkg in "${REQUIRED_PACKAGES[@]}"; do
+    if ! command_exists ${pkg%%-*}; then
+        MISSING_PACKAGES+=("$pkg")
     fi
 done
+
+# If there are missing packages, offer to install them
+if [ ${#MISSING_PACKAGES[@]} -ne 0 ]; then
+    echo "The following required packages are missing:"
+    printf '%s\n' "${MISSING_PACKAGES[@]}"
+    
+    read -p "Do you want to install these packages? (y/N) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Installing missing packages..."
+        sudo dnf install -y "${MISSING_PACKAGES[@]}"
+    else
+        echo "Cannot proceed without required packages. Exiting."
+        exit 1
+    fi
+fi
 
 # Get the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
