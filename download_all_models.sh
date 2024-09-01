@@ -17,6 +17,12 @@ fi
 # Get the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Set the models directory, use environment variable if set, otherwise use default
+MODELS_DIR="${WHISPER_MODELS_DIR:-$SCRIPT_DIR/models}"
+
+# Create models directory if it doesn't exist
+mkdir -p "$MODELS_DIR"
+
 # Path to the download script
 DOWNLOAD_SCRIPT="$SCRIPT_DIR/models/download-ggml-model.sh"
 
@@ -36,13 +42,14 @@ MODELS=(
 
 # Download each model if it doesn't exist
 for model in "${MODELS[@]}"; do
-    MODEL_PATH="$SCRIPT_DIR/models/ggml-$model.bin"
+    MODEL_PATH="$MODELS_DIR/ggml-$model.bin"
     if [ ! -f "$MODEL_PATH" ]; then
         echo "Downloading $model model..."
-        bash "$DOWNLOAD_SCRIPT" "$model"
+        bash "$DOWNLOAD_SCRIPT" "$model" "$MODELS_DIR"
     else
         echo "$model model already exists. Skipping download."
     fi
 done
 
 echo "All models have been checked and downloaded if necessary."
+echo "Models are stored in: $MODELS_DIR"

@@ -16,12 +16,21 @@ for cmd in ccache cmake make g++; do
     fi
 done
 
+# Get the directory of this script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Set the models directory, use environment variable if set, otherwise use default
+MODELS_DIR="${WHISPER_MODELS_DIR:-$SCRIPT_DIR/models}"
+
+# Create models directory if it doesn't exist
+mkdir -p "$MODELS_DIR"
+
 # Download the model if it doesn't exist
-MODEL_PATH="$(realpath "models/ggml-base.en.bin")"
-DOWNLOAD_SCRIPT="$(realpath "models/download-ggml-model.sh")"
+MODEL_PATH="$MODELS_DIR/ggml-base.en.bin"
+DOWNLOAD_SCRIPT="$SCRIPT_DIR/models/download-ggml-model.sh"
 if [ ! -f "$MODEL_PATH" ]; then
     echo "Downloading the base.en model..."
-    bash "$DOWNLOAD_SCRIPT" base.en
+    bash "$DOWNLOAD_SCRIPT" base.en "$MODELS_DIR"
 fi
 
 # Mention the new script for downloading all models
@@ -41,8 +50,6 @@ echo "Build completed successfully!"
 echo "The 'main' executable can be found at: $(pwd)/bin/main"
 echo "Running the main executable with the sample audio file..."
 echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.wav"
-$(pwd)/bin/main -m $MODEL_PATH -f "$(pwd)/../samples/jfk.wav"
+$(pwd)/bin/main -m "$MODEL_PATH" -f "$(pwd)/../samples/jfk.wav"
 
-# Print the contents of the models directory
-# echo -e "\033[1;33mContents of the models directory:\033[0m"
-# ls -l ../models/ | sed 's/^/  /'
+echo "Models are stored in: $MODELS_DIR"
