@@ -24,10 +24,10 @@ if ! command_exists cmake; then
 fi
 
 # Download the model if it doesn't exist
-MODEL_PATH="models/ggml-base.en.bin"
+MODEL_PATH="../models/ggml-base.en.bin"
 if [ ! -f "$MODEL_PATH" ]; then
     echo "Downloading the base.en model..."
-    bash ./models/download-ggml-model.sh base.en
+    bash ../models/download-ggml-model.sh base.en
 fi
 
 # Create build directory
@@ -44,3 +44,7 @@ echo "Build completed successfully!"
 echo "The 'main' executable can be found at: $(pwd)/bin/main"
 echo "Running the main executable with the sample audio file..."
 $(pwd)/bin/main -m $MODEL_PATH -f ../samples/jfk.wav
+
+# Print the contents of the models directory
+echo "Contents of the models directory:"
+ls -l ../models/
