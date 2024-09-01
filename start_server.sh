@@ -33,7 +33,8 @@ sleep 2
 # Print example curl command
 echo "Server started on port $PORT"
 echo "Example curl command to test the server:"
-echo "curl -X POST -H \"Content-Type: audio/wav\" --data-binary @./samples/jfk.wav http://localhost:$PORT/inference"
+echo "curl -X POST -F "file=@./samples/jfk.wav" http://localhost:$PORT/inference"
+# echo "curl -X POST -H \"Content-Type: audio/wav\" --data-binary @./samples/jfk.wav http://localhost:$PORT/inference"
 
 echo "Press Ctrl+C to stop the server"
 
