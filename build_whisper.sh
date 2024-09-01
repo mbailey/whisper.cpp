@@ -8,12 +8,20 @@ command_exists() {
 }
 
 # Check for required tools
-for cmd in cmake make g++; do
+for cmd in make g++; do
     if ! command_exists $cmd; then
         echo "Error: $cmd is not installed. Please install it and try again."
         exit 1
     fi
 done
+
+# Check for CMake separately and provide installation instructions
+if ! command_exists cmake; then
+    echo "Error: cmake is not installed. Please install it and try again."
+    echo "To install CMake on Fedora, run:"
+    echo "sudo dnf install cmake"
+    exit 1
+fi
 
 # Create build directory
 mkdir -p build
