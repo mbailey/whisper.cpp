@@ -17,8 +17,8 @@ for cmd in ccache cmake make g++; do
 done
 
 # Download the model if it doesn't exist
-MODEL_PATH="$(realpath "$(dirname "$0")/../models/ggml-base.en.bin")"
-DOWNLOAD_SCRIPT="$(realpath "$(dirname "$0")/../models/download-ggml-model.sh")"
+MODEL_PATH="$(realpath "models/ggml-base.en.bin")"
+DOWNLOAD_SCRIPT="$(realpath "models/download-ggml-model.sh")"
 if [ ! -f "$MODEL_PATH" ]; then
     echo "Downloading the base.en model..."
     bash "$DOWNLOAD_SCRIPT" base.en
@@ -41,5 +41,5 @@ echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $
 $(pwd)/bin/main -m $MODEL_PATH -f "$(pwd)/../samples/jfk.wav"
 
 # Print the contents of the models directory
-echo -e "\033[1;33mContents of the models directory:\033[0m"
-ls -l ../models/ | sed 's/^/  /'
+# echo -e "\033[1;33mContents of the models directory:\033[0m"
+# ls -l ../models/ | sed 's/^/  /'
