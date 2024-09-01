@@ -1,15 +1,20 @@
 #!/bin/bash
 
-#!/bin/bash
+# whisper-server-start
+
+# Set the path to the model file
+MODEL="${AILOCAL_WHISPER_DEFAULT_MODEL:-ggml-base.en.bin}"
+MODELS_DIR="${AILOCAL_WHISPER_MODELS_DIR:-models}"
+MODEL_FILE="${MODELS_DIR}/${MODEL}"
+
+# Set the port for the server
+API_ENDPOINT="${AILOCAL_WHISPER_API_ENDPOINT:-"http://localhost:${PORT}/audio/transcriptions"}"
+API_PORT="${AILOCAL_WHISPER_API_PORT:-2022}"
+API_HOST="${AILOCAL_WHISPER_API_HOST:-localhost}"
+API_PATH="${AILOCAL_WHISPER_API_PATH:-localhost}"
 
 # Set the path to the server executable
 SERVER_EXECUTABLE="./build/bin/server"
-
-# Set the path to the model file
-MODEL_FILE="./models/ggml-base.en.bin"
-
-# Set the port for the server
-PORT=2020
 
 # Check if the server executable exists
 if [ ! -f "$SERVER_EXECUTABLE" ]; then
@@ -26,8 +31,9 @@ fi
 # Start the server
 echo "Starting Whisper server..."
 $SERVER_EXECUTABLE \
-  --host 0.0.0.0 \
-  --port 2020 \
+  --host "$API_HOST" \
+  --inference-path /audio/transcriptions \
+  --port "$API_PORT" \
   --convert \
   --language en \
   --model "$MODEL_FILE" \
@@ -41,7 +47,7 @@ sleep 2
 # Print example curl command
 echo "Server started on port $PORT"
 echo "Example curl command to test the server:"
-echo "curl -X POST -F \"file=@./samples/jfk.wav\" http://localhost:$PORT/inference"
+echo "curl -X POST -F \"file=@./samples/jfk.wav\" \"${API_ENDPOINT}\""
 
 echo "Press Ctrl+C to stop the server"
 
