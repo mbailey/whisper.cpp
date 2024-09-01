@@ -25,7 +25,15 @@ fi
 
 # Start the server
 echo "Starting Whisper server..."
-$SERVER_EXECUTABLE -m "$MODEL_FILE" -t 4 &
+$SERVER_EXECUTABLE \
+  --host 0.0.0.0 \
+  --port 2020 \
+  --convert \
+  --language en \
+  --model "$MODEL_FILE" \
+  --threads 4 \
+  --convert \
+  &
 
 # Wait for the server to start
 sleep 2
