@@ -51,6 +51,23 @@ if [ ! -f "$MODEL_PATH" ]; then
     bash "$DOWNLOAD_SCRIPT" base.en "$MODELS_DIR"
 fi
 
+# Download sample audio files if they don't exist
+SAMPLES_DIR="$SCRIPT_DIR/samples"
+mkdir -p "$SAMPLES_DIR"
+
+download_sample() {
+    local filename="$1"
+    local url="$2"
+    if [ ! -f "$SAMPLES_DIR/$filename" ]; then
+        echo "Downloading $filename sample..."
+        wget -q -O "$SAMPLES_DIR/$filename" "$url"
+    fi
+}
+
+download_sample "jfk.wav" "https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.wav"
+download_sample "jfk.webm" "https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.webm"
+download_sample "jfk.mp3" "https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.mp3"
+
 # Mention the new script for downloading all models
 echo "Note: To download all available models, run the 'download_all_models.sh' script."
 
@@ -66,8 +83,21 @@ make -j$(nproc)
 
 echo "Build completed successfully!"
 echo "The 'main' executable can be found at: $(pwd)/bin/main"
-echo "Running the main executable with the sample audio file..."
+echo "Running the main executable with sample audio files..."
+
+# Test with WAV file
+echo -e "\033[1;34mTesting WAV file:\033[0m"
 echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.wav"
 $(pwd)/bin/main -m "$MODEL_PATH" -f "$(pwd)/../samples/jfk.wav"
 
-echo "Models are stored in: $MODELS_DIR"
+# Test with WebM file
+echo -e "\n\033[1;34mTesting WebM file:\033[0m"
+echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.webm"
+$(pwd)/bin/main -m "$MODEL_PATH" -f "$(pwd)/../samples/jfk.webm"
+
+# Test with MP3 file
+echo -e "\n\033[1;34mTesting MP3 file:\033[0m"
+echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.mp3"
+$(pwd)/bin/main -m "$MODEL_PATH" -f "$(pwd)/../samples/jfk.mp3"
+
+echo -e "\nModels are stored in: $MODELS_DIR"
