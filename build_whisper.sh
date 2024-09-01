@@ -65,7 +65,6 @@ download_sample() {
 }
 
 download_sample "jfk.wav" "https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.wav"
-download_sample "jfk.webm" "https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.webm"
 download_sample "jfk.mp3" "https://github.com/ggerganov/whisper.cpp/raw/master/samples/jfk.mp3"
 
 # Mention the new script for downloading all models
@@ -85,15 +84,10 @@ echo "Build completed successfully!"
 echo "The 'main' executable can be found at: $(pwd)/bin/main"
 echo "Running the main executable with sample audio files..."
 
-# Test with WAV file
-echo -e "\033[1;34mTesting WAV file:\033[0m"
-echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.wav"
-$(pwd)/bin/main -m "$MODEL_PATH" -f "$(pwd)/../samples/jfk.wav"
-
-# Test with WebM file
-echo -e "\n\033[1;34mTesting WebM file:\033[0m"
-echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.webm"
-$(pwd)/bin/main -m "$MODEL_PATH" -f "$(pwd)/../samples/jfk.webm"
+# Test with WAV file - not supported yet
+# echo -e "\033[1;34mTesting WAV file:\033[0m"
+# echo -e "\033[1;34mExecuting command:\033[0m $(pwd)/bin/main -m $MODEL_PATH -f $(pwd)/../samples/jfk.wav"
+# $(pwd)/bin/main -m "$MODEL_PATH" -f "$(pwd)/../samples/jfk.wav"
 
 # Test with MP3 file
 echo -e "\n\033[1;34mTesting MP3 file:\033[0m"
