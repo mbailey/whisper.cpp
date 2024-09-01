@@ -8,8 +8,8 @@ SERVER_EXECUTABLE="./build/bin/server"
 # Set the path to the model file
 MODEL_FILE="./models/ggml-base.en.bin"
 
-# Set the port for the server (default is 8080)
-PORT=8080
+# Set the port for the server
+PORT=2020
 
 # Check if the server executable exists
 if [ ! -f "$SERVER_EXECUTABLE" ]; then
@@ -41,8 +41,7 @@ sleep 2
 # Print example curl command
 echo "Server started on port $PORT"
 echo "Example curl command to test the server:"
-echo "curl -X POST -F "file=@./samples/jfk.wav" http://localhost:$PORT/inference"
-# echo "curl -X POST -H \"Content-Type: audio/wav\" --data-binary @./samples/jfk.wav http://localhost:$PORT/inference"
+echo "curl -X POST -F \"file=@./samples/jfk.wav\" http://localhost:$PORT/inference"
 
 echo "Press Ctrl+C to stop the server"
 
