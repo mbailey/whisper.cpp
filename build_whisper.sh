@@ -8,20 +8,13 @@ command_exists() {
 }
 
 # Check for required tools
-for cmd in make g++; do
+for cmd in ccache cmake make g++; do
     if ! command_exists $cmd; then
         echo "Error: $cmd is not installed. Please install it and try again."
+        echo "sudo dnf install $cmd"
         exit 1
     fi
 done
-
-# Check for CMake separately and provide installation instructions
-if ! command_exists cmake; then
-    echo "Error: cmake is not installed. Please install it and try again."
-    echo "To install CMake on Fedora, run:"
-    echo "sudo dnf install cmake"
-    exit 1
-fi
 
 # Download the model if it doesn't exist
 MODEL_PATH="models/ggml-base.en.bin"
